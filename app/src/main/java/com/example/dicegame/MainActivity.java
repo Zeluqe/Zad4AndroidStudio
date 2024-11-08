@@ -51,15 +51,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void rollDice() {
-        int[] rzutyKosci = new int[5];
+        int[] rzuty = new int[5];
+        int[] wystapienia = new int[6];
         int sumaRzutu = 0;
+
         for (int i = 0; i < 5; i++) {
-            rzutyKosci[i] = random.nextInt(6) + 1;
-            sumaRzutu += rzutyKosci[i];
+            rzuty[i] = random.nextInt(6) + 1;
+            wystapienia[rzuty[i] - 1]++;
         }
 
-        displayDiceResults(rzutyKosci);
+        for (int i = 0; i < 6; i++) {
+            if (wystapienia[i] >= 2) {
+                sumaRzutu += (i + 1) * wystapienia[i];
+            }
+        }
 
+        displayDiceResults(rzuty);
 
         wynikRzutu.setText("Wynik tego losowania: " + sumaRzutu);
 
